@@ -1,0 +1,44 @@
+Si tanto la API como el sistema web van a estar hospedados localmente, el proceso de conexión es similar, pero te ahorras algunos pasos relacionados con el despliegue en servidores externos. Aquí te detallo cómo conectar tu API de FastAPI a un sistema web en un entorno local:
+
+1. Desarrollar la API con FastAPI
+Primero, asegúrate de que tu API está completamente desarrollada y probada. Asegúrate de que funcione correctamente en tu entorno local, generalmente accesible a través de http://localhost:8000 si usas el puerto por defecto.
+
+2. Ejecutar la API Localmente
+Para ejecutar tu API localmente, puedes usar un servidor ASGI como Uvicorn. Aquí te muestro cómo ejecutar tu aplicación FastAPI usando Uvicorn desde la línea de comandos:
+uvicorn main:app --reload  # main:app donde 'main' es el nombre del archivo Python y 'app' es la instancia de FastAPI
+El flag --reload hace que el servidor se reinicie automáticamente al detectar cambios en el código, lo que es útil durante el desarrollo.
+
+3. Desarrollar el Frontend
+Desarrolla tu sistema web usando HTML, CSS y JavaScript, o un framework como React, Vue.js o Angular. Si estás desarrollando localmente, puedes servir tu frontend usando herramientas como Live Server en Visual Studio Code, o configurar un servidor local de desarrollo si estás usando un framework.
+
+4. Realizar Peticiones desde el Frontend al Backend
+Utiliza JavaScript para realizar peticiones a tu API de FastAPI. Aquí hay un ejemplo básico usando la Fetch API:
+fetch('http://localhost:8000/items')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+
+5. Manejar CORS en Desarrollo Local
+Aunque ambos, el frontend y la API, estén en localhost, podrían estar en diferentes puertos, lo cual crea un escenario de CORS. Configura CORS en tu aplicación FastAPI para permitir las solicitudes desde el puerto del frontend:
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# Ajusta los puertos según donde esté corriendo tu frontend
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Suponiendo que tu frontend corre en el puerto 3000
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+);
+
+6. Pruebas Locales
+Realiza pruebas para asegurarte de que las peticiones entre el frontend y la API funcionen sin problemas. Esto incluye probar todas las funcionalidades que dependen de la API.
+
+7. Ajustar según sea Necesario
+Durante el desarrollo local, es común tener que hacer ajustes tanto en la API como en el frontend para manejar errores, mejorar el rendimiento o añadir nuevas características.
+
+Conclusión
+Desarrollar y probar ambos, el frontend y la API, en un entorno local es una excelente manera de asegurarte de que todo funcione correctamente antes de desplegarlos en un entorno de producción. Además, trabajar localmente te permite experimentar y resolver problemas de manera rápida y segura.

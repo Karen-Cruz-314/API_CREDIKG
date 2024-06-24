@@ -1,0 +1,14 @@
+Crear un entorno virtual llamado venv: python -m venv venv
+Activar el entono virtual: venv\Scripts\activate.bat
+Desactivar el entono virtual: venv\Scripts\deactivate.bat
+Instalar el módulo de FastAPI y uvicorn que se va a encargar de ejecutar la aplicación: pip install fastapi uvicorn
+
+En el ide se tiene que escoger el interprete de python con el que se va a trabajar, esto se puede hacer con las teclas
+ctrl + shift + p, van a salir unas opciones y se tiene que seleccionar Python: Select Interpreter, tenemos que tener en
+cuenta que tenemos que tener seleccionado la version del interprete que tenemos dentro del entorno virtual
+
+Encender la appi: uvicorn main:app --host 0.0.0.0 --reload
+Apagar la api: CTRL +C
+
+
+video 6
