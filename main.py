@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Query
 import json
+from fastapi.middleware.cors import CORSMiddleware
 
 import numpy as np
 import pandas as pd
@@ -9,6 +10,16 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestClassifier
 
 app = FastAPI()
+
+# Configura CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Permite todas las originaciones de este host
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos los métodos
+    allow_headers=["*"],  # Permite todos los headers
+)
+
 
 app.title = "Aplicación CREDIKG"
 
